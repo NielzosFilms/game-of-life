@@ -1,0 +1,24 @@
+<div>
+    <h1>Game of life</h1>
+
+    <h2>Simulation controls</h2>
+
+    <p>Generation: {{generation}}</p>
+    <p>Population: {{population}}</p>
+
+    <button (click)="playSimulation()">Play</button>
+    <button (click)="pauseSimulation()">Pause</button>
+    <button (click)="clearSimulation()">Clear</button>
+    <button (click)="randomizeSimulation()">Randomize</button>
+
+    <div class="container">
+        @for (row of grid; track $index; let y = $index) {
+        <div class="row">
+            @for (col of row; track $index; let x = $index) {
+            <div class="cell" [class.alive]="col === true" [class.dead]="col === false" (click)="toggleCell(x, y)">
+            </div>
+            }
+        </div>
+        }
+    </div>
+</div>
