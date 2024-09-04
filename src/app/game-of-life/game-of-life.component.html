@@ -10,6 +10,8 @@
     <button (click)="pauseSimulation()">Pause</button>
     <button (click)="clearSimulation()">Clear</button>
     <button (click)="randomizeSimulation()">Randomize</button>
+    <button (click)="saveSimulation()">Save</button>
+    <input type="file" (change)="handleFileSelect($event)" />
 
     <div class="container">
         @for (row of grid; track $index; let y = $index) {

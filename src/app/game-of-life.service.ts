@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SimulationManagerService } from './simulation-manager.service';
 import { BehaviorSubject } from 'rxjs';
+import { PersistenceManagerService } from './persistence-manager.service';
+import { FileManagerService } from './file-manager.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,7 +23,11 @@ export class GameOfLifeService {
 
 	public grid$ = new BehaviorSubject<boolean[][]>([]);
 
-	constructor(private simulationManagerService: SimulationManagerService) {
+	constructor(
+		private simulationManagerService: SimulationManagerService,
+		private persistenceManagerService: PersistenceManagerService,
+		private fileManagerService: FileManagerService
+	) {
 		this.rows = 40;
 		this.cols = 40;
 		this.grid = this.initializeGrid();
@@ -99,6 +105,14 @@ export class GameOfLifeService {
 
 	public toggleCell(x: number, y: number): void {
 		this.grid[y][x] = !this.grid[y][x];
+		this.grid$.next(this.grid);
+	}
+
+	public async loadGridFromFile(file: File): Promise<void> {
+		this.grid = this.persistenceManagerService.load(
+			await this.fileManagerService.readFileAsUint8Array(file),
+			40
+		);
 		this.grid$.next(this.grid);
 	}
 }

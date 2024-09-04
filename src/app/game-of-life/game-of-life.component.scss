@@ -1,23 +1,23 @@
 .container {
-    border: 1px solid gray;
-    width: fit-content;
-    height: fit-content;
+	border: 1px solid gray;
+	width: fit-content;
+	height: fit-content;
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 .cell {
-    width: 20px;
-    height: 20px;
+	width: 20px;
+	height: 20px;
 }
 
 .alive {
-    background-color: black;
+	background-color: black;
 }
 
 .dead {
-    background-color: none;
+	background-color: none;
 }
