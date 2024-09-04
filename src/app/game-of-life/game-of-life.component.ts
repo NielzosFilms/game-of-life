@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { GameOfLifeService } from '../game-of-life.service';
 import { SimulationManagerService } from '../simulation-manager.service';
-import { PersistenceManagerService } from '../persistence-manager.service';
-import { FileManagerService } from '../file-manager.service';
 
 @Component({
 	selector: 'app-game-of-life',
@@ -16,9 +14,7 @@ export class GameOfLifeComponent {
 
 	constructor(
 		private gameOfLifeService: GameOfLifeService,
-		private simulationManagerService: SimulationManagerService,
-		private persistenceManagerService: PersistenceManagerService,
-		private fileManagerService: FileManagerService
+		private simulationManagerService: SimulationManagerService
 	) {
 		this.gameOfLifeService.grid$.subscribe((grid) => (this.grid = grid));
 	}
@@ -52,7 +48,7 @@ export class GameOfLifeComponent {
 	}
 
 	public saveSimulation(): void {
-		this.persistenceManagerService.save(this.grid);
+		this.gameOfLifeService.saveGridAndDownload();
 	}
 
 	public async handleFileSelect(event: Event): Promise<void> {

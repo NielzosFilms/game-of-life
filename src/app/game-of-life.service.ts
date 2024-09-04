@@ -108,6 +108,10 @@ export class GameOfLifeService {
 		this.grid$.next(this.grid);
 	}
 
+	public saveGridAndDownload(): void {
+		this.persistenceManagerService.save(this.grid);
+	}
+
 	public async loadGridFromFile(file: File): Promise<void> {
 		this.grid = this.persistenceManagerService.load(
 			await this.fileManagerService.readFileAsUint8Array(file),

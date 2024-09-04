@@ -46,7 +46,6 @@ export class PersistenceManagerService {
 		let grid: boolean[][] = Array.from({ length: gridSize }, () =>
 			Array.from({ length: gridSize }, () => false)
 		);
-		this.logByteArray(buffer);
 
 		grid = grid.map((row, y) =>
 			row.map((cell, x) => {
@@ -70,8 +69,7 @@ export class PersistenceManagerService {
 	private logByteArray(buffer: Uint8Array): void {
 		console.log(
 			Array.from(buffer)
-				// .map((byte) => byte.toString(2).padStart(8, '0'))
-				.map((byte) => byte.toString(10))
+				.map((byte) => byte.toString(2).padStart(8, '0'))
 				.join(' ')
 		);
 	}
