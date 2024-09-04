@@ -18,48 +18,11 @@ export class PersistenceManagerService {
 	constructor(private fileManagerService: FileManagerService) {}
 
 	public save(grid: boolean[][]) {
-		if (grid.length === 0) {
-			throw new Error('Failed to save grid, as grid length is 0');
-		}
-		const bufferSize = Math.ceil(grid.flat().length / 8);
-		let buffer = new Uint8Array(bufferSize);
-		grid.forEach((row, y) =>
-			row.forEach((cell, x) => {
-				if (!cell) {
-					return;
-				}
-				const bitIdx = y * row.length + x;
-				const bufferPos = Math.floor(bitIdx / 8);
-				const bitPos = bitIdx % 8;
-				if (cell) {
-					buffer[bufferPos] |= 1 << bitPos;
-				}
-			})
-		);
-
-		this.logByteArray(buffer);
-
-		this.fileManagerService.downloadByteArray(buffer, 'game-of-life.bin');
+		// TODO
 	}
 
 	public load(buffer: Uint8Array, gridSize: number): boolean[][] {
-		let grid: boolean[][] = Array.from({ length: gridSize }, () =>
-			Array.from({ length: gridSize }, () => false)
-		);
-
-		grid = grid.map((row, y) =>
-			row.map((cell, x) => {
-				const bitIdx = y * row.length + x;
-				const bufferPos = Math.floor(bitIdx / 8);
-				const bitPos = bitIdx % 8;
-				const bitValue = (buffer[bufferPos] & (1 << bitPos)) >>> bitPos;
-				if (bitValue === 1) {
-					return true;
-				}
-				return cell;
-			})
-		);
-		return grid;
+		// TODO
 	}
 
 	/**
