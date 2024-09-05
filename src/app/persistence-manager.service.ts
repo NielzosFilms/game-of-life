@@ -40,23 +40,15 @@ export class PersistenceManagerService {
 	}
 
 	public load(buffer: Uint8Array, gridSize: number): boolean[][] {
-		let grid: boolean[][] = Array.from({ length: gridSize }, () =>
-			Array.from({ length: gridSize }, () => false)
-		);
-
-		grid = grid.map((row, y) =>
-			row.map((cell, x) => {
-				const bitIdx = y * row.length + x;
+		return Array.from({ length: gridSize }, (_, y) =>
+			Array.from({ length: gridSize }, (_, x) => {
+				const bitIdx = y * gridSize + x;
 				const bufferPos = Math.floor(bitIdx / 8);
 				const bitPos = bitIdx % 8;
-				const bitValue = (buffer[bufferPos] & (1 << bitPos)) >>> bitPos;
-				if (bitValue === 1) {
-					return true;
-				}
-				return cell;
+				const bitValue = buffer[bufferPos] & (1 << bitPos);
+				return bitValue >= 1;
 			})
 		);
-		return grid;
 	}
 
 	/**
