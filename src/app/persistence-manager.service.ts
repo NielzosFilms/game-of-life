@@ -23,19 +23,16 @@ export class PersistenceManagerService {
 		}
 		const bufferSize = Math.ceil(grid.flat().length / 8);
 		let buffer = new Uint8Array(bufferSize);
-		grid.forEach((row, y) =>
-			row.forEach((cell, x) => {
-				if (!cell) {
-					return;
-				}
-				const bitIdx = y * row.length + x;
-				const bufferPos = Math.floor(bitIdx / 8);
-				const bitPos = bitIdx % 8;
-				if (cell) {
-					buffer[bufferPos] |= 1 << bitPos;
-				}
-			})
-		);
+		grid.flat().forEach((cell, i) => {
+			if (!cell) {
+				return;
+			}
+			const bufferPos = Math.floor(i / 8);
+			const bitPos = i % 8;
+			if (cell) {
+				buffer[bufferPos] |= 1 << bitPos;
+			}
+		});
 
 		this.logByteArray(buffer);
 
